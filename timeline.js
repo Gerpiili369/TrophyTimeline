@@ -29,7 +29,7 @@ function drawTL(list, gList, canvas, c) {
         gc = {}, x, y = 0, extra;
 
     canvas.width = 24 * 365;
-    canvas.height = 7 * 50;
+    canvas.height = 8 * 50;
 
     for (i = 0, min = 100, colors = []; i < gList.length; i++) {
         colors = [0, 0, 0];
@@ -47,13 +47,26 @@ function drawTL(list, gList, canvas, c) {
         date.start = msToH(date.list[0]);
         date.end = msToH(date.list[date.list.length - 1]);
 
+        for (trophy of date.list) {
+            x = start - msToH(trophy);
+            if (x <= (24 * 365)) {
+                c.save();
+                c.strokeStyle = '#'+ gc[date.game];
+                c.strokeRect(x, y, 0, 40);
+                c.restore();
+            }
+        }
+
+        date.start = msToH(date.list[0]);
+        date.end = msToH(date.list[date.list.length - 1]);
         x = start - date.start;
         width = date.start - date.end;
+
         if (x + width > (24 * 365)) {
             extra = (x + width) - (24 * 365)
             c.save();
-            c.fillStyle = '#'+ gc[date.game];
-            c.fillRect(x,y, width - extra, 45);
+            c.strokeStyle = '#'+ gc[date.game];
+            c.strokeRect(x,y, width - extra, 45);
             c.restore();
 
             if (width - extra > 5) {
@@ -68,18 +81,31 @@ function drawTL(list, gList, canvas, c) {
                 );
         		c.restore();
             }
-            start -= 24 * 365 //date.start
-            y += 50
-            x = 0
+
+            y += 50;
+
+            for (trophy of date.list) {
+                x = start - msToH(trophy);
+                if (x > (24 * 365)) {
+                    // console.log(x - (width - extra));
+                    c.save();
+                    c.strokeStyle = '#'+ gc[date.game];
+                    c.strokeRect(x - 24 * 365, y, 1, 40);
+                    c.restore();
+                }
+            }
+            start -= 24 * 365;
             width = extra;
+            x = 0;
         }
 
         if (width < 1 || width > 10000) width = 1;
-        
+
         c.save();
-        c.fillStyle = '#'+ gc[date.game];
-        c.fillRect(x,y, width, 45);
+        c.strokeStyle = '#'+ gc[date.game];
+        c.strokeRect(x,y, width, 45);
         c.restore();
+
 
         if (width > 5) {
     		c.save();
@@ -101,5 +127,6 @@ function drawTL(list, gList, canvas, c) {
         c.fillRect(i, 0, 1, 25);
         c.restore();
     }
+    console.log('w', canvas.width);
     console.log('done', Date.now() - st);
 }
