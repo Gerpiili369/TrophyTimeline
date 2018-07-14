@@ -4,12 +4,39 @@
         <meta charset="utf-8">
         <title>Timeline</title>
         <script src="timeline.js"></script>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div style="position: relative">
             <canvas id="canvas" width="8760" height="0" style="position: absolute; left: 0; top: 0; z-index: 0">Not working</canvas>
             <canvas id="block" width="8760" height="0" style="position: absolute; left: 0; top: 0; z-index: 1">Not working</canvas>
             <canvas id="hud" width="8760" height="0" style="position: absolute; left: 0; top: 0; z-index: 2">Not working</canvas>
+        </div>
+        <div class="bottom-left">
+            <p id="text">Enter PSN username</p>
+            <h1 id="title">Demo</h1>
+        </div>
+        <div class="bottom-right">
+            <!-- <input type="range" min="0" max="5" value="3" class="slider" id="zoom"> -->
+
+            <form onsubmit="return false"><table>
+                <tr><td colspan="2">
+                    <input type="radio" name="zoom" value="0">10%
+                    <input type="radio" name="zoom" value="1">25%
+                    <input type="radio" name="zoom" value="2">50%
+                    <input type="radio" name="zoom" value="3" checked>100%
+                    <input type="radio" name="zoom" value="4">200%
+                    <input type="radio" name="zoom" value="5">350%
+                </td></tr>
+                <tr>
+                    <td>
+                        <input type="text" id="username">
+                    </td>
+                    <td>
+                        <input type="submit" value="go" id="submit">
+                    </td>
+                </tr>
+            </table></form>
         </div>
     </body>
 </html>
