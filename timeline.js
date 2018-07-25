@@ -62,7 +62,6 @@ function search(canvas, context, elements) {
     return new Promise((resolve, reject) => {
         const object = {}, gameList = [], dateList = [];
         let trophyList;
-        console.log(elements.username.value);
         fetch(elements.username.value === '' ? 'demo.json' : `http://localhost:3004/api/trophies/${elements.username.value}?groupByGame=true&groupByDate=year`)
             .then(result => result.json())
             .then(data => {
