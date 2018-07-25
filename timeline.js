@@ -23,6 +23,8 @@
 
     search(canvas, context, elements);
 
+    for (zoom of elements.zoom) zoom.addEventListener('click', () => drawTL(...upData));
+
     elements.button.addEventListener('click', () => {
         if (ready) {
             ready = false;
@@ -75,7 +77,8 @@ function search(canvas, context, elements) {
                             object[new Date(year.title).getFullYear()].push({game: trophyData.title, list: trophyList});
                         }
                     }
-                    drawTL(object, gameList, canvas, context, elements);
+                    upData = [object, gameList, canvas, context, elements]
+                    drawTL(...upData, );
                     resolve(data.username);
                 }
             })
