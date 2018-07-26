@@ -13,8 +13,8 @@
         elements = {
             title: document.getElementById('title'),
             text: document.getElementById('text'),
-            zoom: document.getElementsByName('zoom'),
-            // zoom: document.getElementById('zoom'),
+            // zoom: document.getElementsByName('zoom'),
+            zoom: document.getElementById('zoom'),
             username: document.getElementById('username'),
             button: document.getElementById('submit')
         }
@@ -23,7 +23,8 @@
 
     search(canvas, context, elements);
 
-    for (zoom of elements.zoom) zoom.addEventListener('click', () => drawTL(...upData));
+    elements.zoom.onchange = () => drawTL(...upData);
+    // for (zoom of elements.zoom) zoom.addEventListener('click', () => drawTL(...upData));
 
     elements.button.addEventListener('click', () => {
         if (ready) {
@@ -89,7 +90,8 @@ function drawTL(object, gList, canvas, c, elements) {
     const start = msToH(new Date(new Date().getFullYear() + 1, 0)), gc = {}, boxes = [];
     let x, y = Object.keys(object).length * 50, zoom;
 
-    for (i of elements.zoom) if (i.checked) switch (i.value) {
+    switch(elements.zoom.value) {
+    // for (i of elements.zoom) if (i.checked) switch (i.value) {
         case '0': zoom = 0.1;     break;
         case '1': zoom = 0.25;    break;
         case '2': zoom = 0.5;     break;
